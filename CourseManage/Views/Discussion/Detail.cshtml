@@ -1,0 +1,237 @@
+﻿@*@using Entities
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model global::ViewModels.ViewDetailDiscussionModel
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+<!-- Header Layout Content -->
+<div class="mdk-header-layout__content page-content ">
+
+    <div class="container page__container">
+        <div class="page-section">
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <h1 class="h2 measure-lead-max mb-2">@Model.Discussion.Title</h1>
+                    <p class="text-muted d-flex align-items-center mb-lg-32pt">
+                        <a asp-action="Index" asp-route-id="@Model.Discussion.LessonId"
+                           class="mr-3">Back to Community</a>
+                        <a href="#"
+                           class="mr-2 text-50">Mute</a>
+                        <a href="#"
+                           class="mr-2 text-50">Report</a>
+                        <a href="#"
+                           class="text-50"
+                           style="text-decoration: underline;">Edit</a>
+                    </p>
+
+                    <div class="card card-body">
+                        <div class="d-flex">
+                            <a href=""
+                               class="avatar avatar-sm avatar-online mr-12pt">
+                                <img src="@Url.Content(Model.Discussion.GetAvatar)" alt="people" class="avatar-img rounded-circle">
+                                $1$ <span class="avatar-title rounded-circle">JD</span> #1#
+                            </a>
+                            <div class="flex">
+                                <p class="d-flex align-items-center mb-2">
+                                    <a href=""
+                                       class="text-body mr-2"><strong>@Model.Discussion.GetName</strong></a>
+                                    <small class="text-muted">@(DateTime.Now.Day - Model.Discussion.CreatedAt.Day) days ago</small>
+                                </p>
+                                <p>@Model.Discussion.Content</p>
+                                <div class="d-flex align-items-center">
+                                    <a href=""
+                                       class="text-50 d-flex align-items-center text-decoration-0">
+                                        <i class="material-icons mr-1"
+                                           style="font-size: inherit;">favorite_border</i> 30
+                                    </a>
+                                    <a href=""
+                                       class="text-50 d-flex align-items-center text-decoration-0 ml-3">
+                                        <i class="material-icons mr-1"
+                                           style="font-size: inherit;">thumb_up</i> 130
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4">
+                        <a href=""
+                           class="avatar avatar-sm mr-12pt">
+                            <img src="@Url.Content(user.Avatar)" class="avatar-img rounded-circle">
+                            $1$ <span class="avatar-title rounded-circle">LB</span> #1#
+                        </a>
+                        <div class="flex">
+                            <div class="form-group">
+                                <label for="comment"
+                                       class="form-label">Your reply</label>
+                                <textarea class="form-control"
+                                          name="comment"
+                                          id="comment"
+                                          rows="3"
+                                          placeholder="Type here to reply to @Model.Discussion.GetName ..."></textarea>
+                            </div>
+                            <button class="btn btn-outline-secondary post-btn">Post comment</button>
+                        </div>
+                    </div>
+                    <h4>@Model.Discussion.DiscussionReplies.Count() Comments</h4>
+                    <div class="pt-3">
+                        @foreach (var rep in @Model.Discussion.DiscussionReplies)
+                        {
+                            <div class="d-flex mb-3">
+                                <a href=""
+                                   class="avatar avatar-sm mr-12pt">
+                                    <img src="@Url.Content(rep.GetAvatar)" alt="people" class="avatar-img rounded-circle">
+                                </a>
+                                <div class="flex">
+                                    <a href=""
+                                       class="text-body"><strong>@rep.GetName</strong></a><br>
+                                    <p class="mt-1 text-70">@rep.Content</p>
+                                    <div class="d-flex align-items-center">
+                                        <small class="text-50 mr-2">@(DateTime.Now.Day - rep.CreatedAt.Day) days ago</small>
+                                        <a href=""
+                                           class="text-50"><small>Liked</small></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Top Contributors</div>
+                    </div>
+                    <p class="text-70 mb-24pt">People who started the most discussions on Luma.</p>
+
+                    <div class="mb-4">
+                        @foreach (var top in Model.TopUserDiscussions)
+                        {
+                            <div class="d-flex align-items-center mb-2">
+                                <a href=""
+                                   class="avatar avatar-xs mr-8pt">
+                                    <img src="@Url.Content(top.User.Avatar)"
+                                         alt="course"
+                                         class="avatar-img rounded-circle">
+                                </a>
+                                <a href=""
+                                   class="flex mr-2 text-body"><strong>@top.User.Name</strong></a>
+                                <span class="text-70 mr-2">@top.DiscussionCount</span>
+                                <i class="text-muted material-icons font-size-16pt">forum</i>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@{
+    var postCommentUrl = @Url.Action("PostCommentAsync", "Discussion");
+}
+<!-- // END Header Layout Content -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="@Url.Content("https://cdn.jsdelivr.net/npm/@microsoft/signalr@latest/dist/browser/signalr.min.js")"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/hub/discussionHub").build();
+    function addComment(userAvatar, userName, content) {
+        // Append the new comment to the comments section
+        var newCommentHtml = `
+                                        <div class="d-flex mb-3">
+                                            <a href="" class="avatar avatar-sm mr-12pt">
+                                                <img src="${userAvatar}" alt="people" class="avatar-img rounded-circle">
+                                            </a>
+                                            <div class="flex">
+                                                <a href="" class="text-body"><strong>${userName}</strong></a><br>
+                                                <p class="mt-1 text-70">${content}</p>
+                                                <div class="d-flex align-items-center">
+                                                    <small class="text-50 mr-2">0 days ago</small>
+                                                    <a href="" class="text-50"><small>Liked</small></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+        $(".pt-3").prepend(newCommentHtml);
+
+
+        // Update the comment count (if you want)
+        var commentCountElement = $("h4");
+        var currentCount = parseInt(commentCountElement.text().split(" ")[0]);
+        commentCountElement.text((currentCount + 1) + " Comments");
+    }
+    // Xử lý message "ReceiveComment" từ server
+    connection.on("ReceiveComment", function (discussionId, userName, userAvatar, content) {
+        console.log("ReceiveComment");
+        if (discussionId === @Model.Discussion.DiscussionId) { // Kiểm tra discussionId
+            addComment(userAvatar, userName, content);
+        }
+    });
+
+    // Bắt đầu connection SignalR
+    connection.start().then(function () {
+        console.log("SignalR connected.");
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+    setTimeout(function () {
+        console.log("SignalR connection state:", connection.state); // 0: Connecting, 1: Connected, 2: Reconnecting, 4: Disconnected
+    }, 2000);
+    $(document).ready(function () {
+        $("#comment").on("keydown", function (e) {
+            if (e.keyCode === 13 && e.ctrlKey) { // Enter key pressed without Shift
+                e.preventDefault(); // Prevent default form submission
+                postComment();
+            }
+        });
+
+        $("button.post-btn").click(function (e) {
+            e.preventDefault();
+            console.log("click");
+            postComment();
+        });
+
+        function postComment() {
+            var commentText = $("#comment").val();
+            console.log("content: " + commentText);
+            if (commentText.trim() === "") {
+                return; // Don't post empty comments
+            }
+
+            var discussionId = @Model.Discussion.DiscussionId; // Get the discussion ID from the model
+
+            $.ajax({
+                url: "@postCommentUrl", // Your controller action to handle the comment
+                type: "POST",
+                data: {
+                    discussionId: discussionId,
+                    content: commentText,
+                },
+                success: function (data) {
+                    // Clear the comment textarea
+                    $("#comment").val("");
+
+                    addComment(data.userAvatar, data.userName, data.content);
+
+                    // Gọi hàm SendComment trên server qua SignalR
+                    connection.invoke("SendComment", discussionId, data.userName, data.userAvatar, data.content).catch(function (err) {
+                        return console.error(err.toString());
+                    });
+                },
+                error: function (error) {
+                    console.error("Error posting comment:", error);
+                    // Handle errors, e.g., display an error message
+                    alert("Error posting comment. Please try again later.");
+                }
+            });
+        }
+    });
+
+</script>*@

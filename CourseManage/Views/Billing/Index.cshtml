@@ -1,0 +1,101 @@
+        @model CourseManage.ViewModels.ViewBillModel
+
+            <!-- Header Layout Content -->
+            <div class="mdk-header-layout__content page-content ">
+
+                <div class="pt-32pt">
+                    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+                        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                                <h2 class="mb-0">Billing</h2>
+
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+
+                                    <li class="breadcrumb-item">
+
+                                        <a href="">Account</a>
+
+                                    </li>
+
+                                    <li class="breadcrumb-item active">
+
+                                        Billing
+
+                                    </li>
+
+                                </ol>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="page-section container page__container">
+                    <div class="page-separator">
+                        <div class="page-separator__text">Subscription</div>
+                    </div>
+                    <div class="col-lg-8 p-0">
+                        <div class="list-group list-group-form">
+                            <div class="list-group-item">
+                                <div class="form-group row align-items-center mb-0">
+                                    <label class="col-form-label form-label col-sm-3">Your current plan</label>
+                                    <div class="col-sm-9 d-flex align-items-center">
+                                        <div class="flex">@Model.SubscriptionType.Name, &dollar;@Model.SubscriptionType.Price per month</div>
+                                        <a asp-action="Upgrade" asp-controller="Billing"
+                                           class="text-secondary">Change plan</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-group row align-items-center mb-0">
+                                    <label class="col-form-label form-label col-sm-3">Billing cycle</label>
+                                    <div class="col-sm-9">
+                            <p>You will be charged $@Model.SubscriptionType.Price on @Model.Subscription.EndDate.ToString("dd/MM/yyyy")</p>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox"
+                                                   class="custom-control-input"
+                                @((Model.PaymentInformation?.AutoRenew ?? false) ? "checked" : "")
+                                                   id="customCheck1">
+                                            <label class="custom-control-label"
+                                                   for="customCheck1">Enable automatic renewal</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-group row align-items-center mb-0">
+                                    <label class="col-form-label form-label col-sm-3">Payment information</label>
+                                    <div class="col-sm-9 d-flex align-items-center">
+                                        <img src="~/images/visa.svg"
+                                             alt="visa"
+                                             width="38"
+                                             class="mr-16pt">
+                            <div class="flex">
+                                @(Model.PaymentInformation?.CreditNumber != null
+                                    ? $"Visa ending with {Model.PaymentInformation.CreditNumber.Substring(Model.PaymentInformation.CreditNumber.Length - 4)}"
+                                    : "There is no VISA")
+                                </div>
+                            <a asp-action ="Payment" asp-controller="Billing"
+                                           class="text-secondary">Change method</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-group row align-items-center mb-0">
+                                    <label class="col-form-label form-label col-sm-3">Cancel</label>
+                                    <div class="col-sm-9">
+                            <a asp-controller="Billing" asp-action="UpgradeAccount" asp-route-id="1"
+                                           class="btn btn-outline-secondary">Cancel subscription</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- // END Header Layout Content -->
+

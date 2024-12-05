@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CourseManage.Entities.ParentMenu>
+@{
+    bool isSelected = true;
+}
+@foreach (var item in Model)
+{
+    <li class="sidebar-menu-item @(isSelected ? "active" : "")"
+        data-toggle="tooltip"
+        data-title="@item.Name"
+        data-placement="right"
+        data-boundary="window">
+        <a class="sidebar-menu-button @(isSelected ? "active" : "")"
+           href="#@item.Link"
+           data-toggle="tab"
+           role="tab"
+           aria-controls="sm_student"
+           aria-selected="@(isSelected ? "true" : "false")">
+            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">@item.Icon</i>
+            <span class="sidebar-menu-text">@item.Span</span>
+        </a>
+    </li>
+    isSelected = false; // Ensure only the first item is marked as active
+}

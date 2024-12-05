@@ -1,0 +1,246 @@
+﻿    <!DOCTYPE html>
+<html lang="en"
+      dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Luma</title>
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots"
+          content="noindex">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&display=swap"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/wwwroot/vendor/spinkit.css"
+          rel="stylesheet">
+
+    <!-- Perfect Scrollbar -->
+    <link type="text/css"
+          href="~/wwwroot/vendor/perfect-scrollbar.css"
+          rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link type="text/css"
+          href="~/wwwroot/css/material-icons.css"
+          rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link type="text/css"
+          href="~/wwwroot/css/fontawesome.css"
+          rel="stylesheet">
+
+    <!-- Preloader -->
+    <link type="text/css"
+          href="~/wwwroot/css/preloader.css"
+          rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css"
+          href="~/wwwroot/css/app.css"
+          rel="stylesheet">
+    <link type="text/css"
+          href="~/wwwroot/css/flatpickr.css"
+          rel="stylesheet">
+    <link type="text/css"
+          href="~/wwwroot/css/flatpickr-airbnb.css"
+          rel="stylesheet">
+
+</head>
+
+<body class="layout-sticky-subnav layout-default ">
+
+<div class="preloader">
+    <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+    </div>
+</div>
+
+<!-- Header Layout -->
+<div class="mdk-header-layout js-mdk-header-layout">
+
+    <!-- Header -->
+
+    <div id="header"
+         class="mdk-header mdk-header--bg-dark bg-dark js-mdk-header mb-0"
+         data-effects="parallax-background waterfall"
+         data-fixed
+         data-condenses>
+        <div class="mdk-header__bg">
+            <div class="mdk-header__bg-front"
+                 style="background-image: url('@Url.Content("~/wwwroot/images/photodune-4161018-group-of-students-m.jpg")');
+                     background-size: cover;
+                     background-position: center;">
+            </div>
+        </div>
+
+        <div class="mdk-header__content justify-content-center">
+
+            <div class="navbar navbar-expand navbar-dark-pickled-bluewood bg-transparent will-fade-background"
+                 id="default-navbar"
+                 data-primary>
+                <!-- Navbar Brand -->
+                <a href="/"
+                   class="navbar-brand mr-16pt">
+                    <!-- <img class="navbar-brand-icon" src="~/wwwroot/images/logo/white-100@2x.png" width="30" alt="Luma"> -->
+
+                    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+
+                        <span class="avatar-title rounded bg-primary">
+                            <img src="~/wwwroot/images/illustration/student/128/white.svg"
+                                 alt="logo"
+                                 class="img-fluid"/>
+                        </span>
+
+                    </span>
+
+                    <span class="d-none d-lg-block">Luma</span>
+                </a>
+                <div class="d-flex align-items-center navbar-height">
+                    <form action="index.html"
+                          class="search-form search-form--black mx-16pt pr-0 pl-16pt">
+                        <input type="text"
+                               class="form-control pl-0"
+                               placeholder="Search">
+                        <button class="btn"
+                                type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </form>
+                </div>
+
+                <ul class="nav navbar-nav ml-auto mr-0">
+                    <li class="nav-item">
+                        <a href="/login"
+                           class="nav-link"
+                           data-toggle="tooltip"
+                           data-title="Login"
+                           data-placement="bottom"
+                           data-boundary="window">
+                            <i class="material-icons">lock_open</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/signup"
+                           class="btn btn-outline-white">
+                            Get Started
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+</div>
+
+@* *@
+@* <div class="mdk-drawer js-mdk-drawer" *@
+@*      id="default-drawer"> *@
+@*     <div class="mdk-drawer__content"> *@
+@*         <div class="sidebar sidebar-dark-pickled-bluewood sidebar-left" *@
+@*              data-perfect-scrollbar> *@
+@* *@
+@*             <!-- Sidebar Content --> *@
+@* *@
+@* <div class="d-flex align-items-center navbar-height"> *@
+@*     <form action="index.html" *@
+@*           class="search-form search-form--black mx-16pt pr-0 pl-16pt"> *@
+@*         <input type="text" *@
+@*                class="form-control pl-0" *@
+@*                placeholder="Search"> *@
+@*         <button class="btn" *@
+@*                 type="submit"> *@
+@*             <i class="material-icons">search</i> *@
+@*         </button> *@
+@*     </form> *@
+@* </div> *@
+@* *@
+@*             <a href="index.html" *@
+@*                class="sidebar-brand "> *@
+@*                 <!-- <img class="sidebar-brand-icon" src="~/wwwroot/images/illustration/student/128/white.svg" alt="Luma"> --> *@
+@* *@
+@*                 <span class="avatar avatar-xl sidebar-brand-icon h-auto"> *@
+@* *@
+@*                     <span class="avatar-title rounded bg-primary"> *@
+@*                         <img src="~/wwwroot/images/illustration/student/128/white.svg" *@
+@*                              class="img-fluid" *@
+@*                              alt="logo" /> *@
+@*                     </span> *@
+@* *@
+@*                 </span> *@
+@* *@
+@*                 <span>Luma</span> *@
+@*             </a> *@
+@* *@
+@*             @await Component.InvokeAsync("Menu"); *@
+@* *@
+@*             <!-- // END Sidebar Content --> *@
+@* *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+
+<script src="~/wwwroot/js/settings.js"></script>
+<!-- jQuery -->
+<script src="~/wwwroot/vendor/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="~/wwwroot/vendor/popper.min.js"></script>
+<script src="~/wwwroot/vendor/bootstrap.min.js"></script>
+
+<!-- Perfect Scrollbar -->
+<script src="~/wwwroot/vendor/perfect-scrollbar.min.js"></script>
+
+<!-- DOM Factory -->
+<script src="~/wwwroot/vendor/dom-factory.js"></script>
+
+<!-- MDK -->
+<script src="~/wwwroot/vendor/material-design-kit.js"></script>
+
+<!-- App JS -->
+<script src="~/wwwroot/js/app.js"></script>
+
+<!-- Preloader -->
+<script src="~/wwwroot/js/preloader.js"></script>
+<script src="~/wwwroot/js/sweetalert.js"></script>
+<script src="~/wwwroot/vendor/sweetalert.min.js"></script>
+
+<!-- Flatpickr -->
+<script src="~/wwwroot/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="~/wwwroot/js/flatpickr.js"></script>
+
+<!-- List.js -->
+<script src="~/wwwroot/vendor/list.min.js"></script>
+<script src="~/wwwroot/js/list.js"></script>
+<script>
+    (function () {
+        'use strict';
+        var headerNode = document.querySelector('.mdk-header')
+        var layoutNode = document.querySelector('.mdk-header-layout')
+        var componentNode = layoutNode ? layoutNode : headerNode
+        componentNode.addEventListener('domfactory-component-upgraded', function () {
+            headerNode.mdkHeader.eventTarget.addEventListener('scroll', function () {
+                var progress = headerNode.mdkHeader.getScrollState().progress
+                var navbarNode = headerNode.querySelector('#default-navbar')
+                navbarNode.classList.toggle('bg-transparent', progress <= 0.2)
+            })
+        })
+    })()
+</script>
+@RenderSection("Scripts", required: false)
+</body>
+
+</html>

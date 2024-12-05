@@ -1,0 +1,675 @@
+﻿@model IEnumerable<CourseManage.Entities.Instructor>
+
+<!-- // END Header -->
+<!-- Header Layout Content -->
+<div class="mdk-header-layout__content page-content ">
+
+    <div data-push
+         data-responsive-width="992px"
+         class="mdk-drawer-layout js-mdk-drawer-layout">
+        <div class="mdk-drawer-layout__content">
+
+            <div class="page-section">
+                <div class="container page__container">
+
+                    <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt"
+                         style="white-space: nowrap;">
+                        <small class="flex text-muted text-headings text-uppercase mr-3 mb-2 mb-sm-0">Displaying 4 out of 10 teachers</small>
+                        <div class="w-auto ml-sm-auto table d-flex align-items-center mb-2 mb-sm-0">
+                            <small class="text-muted text-headings text-uppercase mr-3 d-none d-sm-block">Sort by</small>
+
+                            <a href="#"
+                               class="sort desc small text-headings text-uppercase">Newest</a>
+
+                            <a href="#"
+                               class="sort small text-headings text-uppercase ml-2">Popularity</a>
+
+                        </div>
+
+                        <a href="#"
+                           data-target="#library-drawer"
+                           data-toggle="sidebar"
+                           class="btn btn-sm btn-white ml-sm-16pt">
+                            <i class="material-icons icon--left">tune</i> Filters
+                        </a>
+
+                    </div>
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Top Teachers</div>
+                    </div>
+
+                    <div class="row card-group-row">
+
+                        @foreach (var i in Model)
+                        {
+                            <div class="col-md-6 col-xl-4 card-group-row__col">
+                                <div class="card card-group-row__card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <a href="@Url.Action("Profile", "Instructor", new { id = i.InstructorId})"
+                                           class="card-title flex mr-12pt">@i.Name</a>
+                                        <a href="@Url.Action("Profile", "Instructor", new { id = i.InstructorId})"
+                                           class="btn btn-light btn-sm"
+                                           data-toggle="tooltip"
+                                           data-title="Unfollow"
+                                           data-placement="bottom">Following</a>
+                                    </div>
+                                    <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+                                        <a href="@Url.Action("Profile", "Instructor", new { id = i.InstructorId})"
+                                           class="avatar avatar-xl overlay js-overlay overlay--primary rounded-circle p-relative o-hidden mb-16pt">
+                                            <img src="~/images/people/110/guy-1.jpg"
+                                                 alt="teacher"
+                                                 class="avatar-img">
+                                            <span class="overlay__content"><i class="overlay__action material-icons icon-40pt">face</i></span>
+                                        </a>
+                                        <div class="flex">
+                                            <div class="d-inline-flex align-items-center mb-8pt">
+                                                <div class="rating mr-8pt">
+
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                    <span class="rating__item"><span class="material-icons">star_border</span></span>
+
+                                                    <span class="rating__item"><span class="material-icons">star_border</span></span>
+
+                                                </div>
+                                                <small class="text-muted">3/5</small>
+                                            </div>
+
+                                            <p class="text-70 measure-paragraph">@i.About</p>
+                                            @if (i.PrimaryTopic != null)
+                                            {
+                                                <a href="javascript:void()"
+                                                   data-toggle="tooltip"
+                                                   data-title="Browse Topic"
+                                                   data-placement="bottom"
+                                                   class="chip chip-outline-secondary">@i.PrimaryTopic.Name</a>
+
+                                            }
+                                        </div>
+                                    </div>
+                                    @if (i.CoursesInstructed.Any())
+                                    {
+                                        var firstCourse = i.CoursesInstructed.First();
+                                        <div class="d-flex align-items-center">
+                                            <a asp-controller="Courses"
+                                               asp-action="Detail"
+                                               asp-route-id="@firstCourse.CourseId"
+                                               class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                                                <img src=""
+                                                     alt="@firstCourse.Title"
+                                                     class="avatar-img rounded">
+                                                <span class="overlay__content"></span>
+                                            </a>
+                                            <div class="flex">
+                                                <a href="@Url.Action("Detail", "Courses", new { id = firstCourse.CourseId })"
+                                                   class="card-title">@firstCourse.Title</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No courses available</p>
+                                    }
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="mb-32pt">
+
+                        <ul class="pagination justify-content-start pagination-xsm m-0">
+                            <li class="page-item disabled">
+                                <a class="page-link"
+                                   href="#"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true"
+                                          class="material-icons">chevron_left</span>
+                                    <span>Prev</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="#"
+                                   aria-label="Page 1">
+                                    <span>1</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="#"
+                                   aria-label="Page 2">
+                                    <span>2</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="#"
+                                   aria-label="Next">
+                                    <span>Next</span>
+                                    <span aria-hidden="true"
+                                          class="material-icons">chevron_right</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Rising Stars</div>
+                    </div>
+
+                    <div class="row card-group-row">
+
+                        <div class="col-md-6 col-xl-4 card-group-row__col">
+                            <div class="card card-group-row__card">
+                                <div class="card-header d-flex align-items-center">
+                                    <a href="teacher-profile.html"
+                                       class="card-title flex mr-12pt">Nicole G.</a>
+                                    <a href="teacher-profile.html"
+                                       class="btn btn-light btn-sm">Follow</a>
+                                </div>
+                                <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+                                    <a href="teacher-profile.html"
+                                       class="avatar avatar-xl overlay overlay--show overlay--primary rounded-circle p-relative o-hidden mb-16pt">
+                                        <img src="~/images/people/110/woman-2.jpg"
+                                             alt="teacher"
+                                             class="avatar-img">
+                                        <span class="overlay__content"><i class="overlay__action material-icons icon-40pt">face</i></span>
+                                    </a>
+                                    <div class="flex">
+                                        <div class="d-inline-flex align-items-center mb-8pt">
+                                            <div class="rating mr-8pt">
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                            </div>
+                                            <small class="text-muted">5/5</small>
+                                        </div>
+
+                                        <p class="text-70 measure-paragraph">Fueled by my passion for understanding the nuances of cross-cultural advertising, I consider myself a forever student, eager to both build on my academic foundations in psychology and sociology and stay in tune with the latest digital marketing strategies through continued coursework.</p>
+
+                                        <a href="javascript:void()"
+                                           data-toggle="tooltip"
+                                           data-title="Browse Topic"
+                                           data-placement="bottom"
+                                           class="chip chip-outline-secondary">UX Designer</a>
+                                    </div>
+                                </div>
+                                <div class="card-body flex-0">
+                                    <div class="d-flex align-items-center">
+                                        <a href="student-course.html"
+                                           class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                                            <img src="~/images/paths/angular_routing_200x168.png"
+                                                 alt=""
+                                                 class="avatar-img rounded">
+                                            <span class="overlay__content"></span>
+                                        </a>
+                                        <div class="flex">
+                                            <a href="student-course.html"
+                                               class="card-title">Angular Routing In-Depth</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 card-group-row__col">
+                            <div class="card card-group-row__card">
+                                <div class="card-header d-flex align-items-center">
+                                    <a href="teacher-profile.html"
+                                       class="card-title flex mr-12pt">Abraham K.</a>
+                                    <a href="teacher-profile.html"
+                                       class="btn btn-light btn-sm">Follow</a>
+                                </div>
+                                <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+                                    <a href="teacher-profile.html"
+                                       class="avatar avatar-xl overlay js-overlay overlay--primary rounded-circle p-relative o-hidden mb-16pt">
+                                        <img src="~/images/people/110/guy-3.jpg"
+                                             alt="teacher"
+                                             class="avatar-img">
+                                        <span class="overlay__content"><i class="overlay__action material-icons icon-40pt">face</i></span>
+                                    </a>
+                                    <div class="flex">
+                                        <div class="d-inline-flex align-items-center mb-8pt">
+                                            <div class="rating mr-8pt">
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star_border</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star_border</span></span>
+
+                                            </div>
+                                            <small class="text-muted">3/5</small>
+                                        </div>
+
+                                        <p class="text-70 measure-paragraph">Fueled by my passion for understanding the nuances of cross-cultural advertising, I consider myself a forever student, eager to both build on my academic foundations in psychology and sociology and stay in tune with the latest digital marketing strategies through continued coursework.</p>
+
+                                        <a href="javascript:void()"
+                                           data-toggle="tooltip"
+                                           data-title="Browse Topic"
+                                           data-placement="bottom"
+                                           class="chip chip-outline-secondary">Entrepreneur</a>
+                                    </div>
+                                </div>
+                                <div class="card-body flex-0">
+                                    <div class="d-flex align-items-center">
+                                        <a href="student-course.html"
+                                           class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                                            <img src="~/images/paths/react_200x168.png"
+                                                 alt="Become a React Native Developer"
+                                                 class="avatar-img rounded">
+                                            <span class="overlay__content"></span>
+                                        </a>
+                                        <div class="flex">
+                                            <a href="student-course.html"
+                                               class="card-title">Become a React Native Developer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-4 card-group-row__col">
+                            <div class="card card-group-row__card">
+                                <div class="card-header d-flex align-items-center">
+                                    <a href="teacher-profile.html"
+                                       class="card-title flex mr-12pt">Jane D.</a>
+                                    <a href="teacher-profile.html"
+                                       class="btn btn-light btn-sm">Follow</a>
+                                </div>
+                                <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+                                    <a href="teacher-profile.html"
+                                       class="avatar avatar-xl overlay js-overlay overlay--primary rounded-circle p-relative o-hidden mb-16pt">
+                                        <img src="~/images/people/110/woman-3.jpg"
+                                             alt="teacher"
+                                             class="avatar-img">
+                                        <span class="overlay__content"><i class="overlay__action material-icons icon-40pt">face</i></span>
+                                    </a>
+                                    <div class="flex">
+                                        <div class="d-inline-flex align-items-center mb-8pt">
+                                            <div class="rating mr-8pt">
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                                <span class="rating__item"><span class="material-icons">star</span></span>
+
+                                            </div>
+                                            <small class="text-muted">5/5</small>
+                                        </div>
+
+                                        <p class="text-70 measure-paragraph">Fueled by my passion for understanding the nuances of cross-cultural advertising, I consider myself a forever student, eager to both build on my academic foundations in psychology and sociology and stay in tune with the latest digital marketing strategies through continued coursework.</p>
+
+                                        <a href="javascript:void()"
+                                           data-toggle="tooltip"
+                                           data-title="Browse Topic"
+                                           data-placement="bottom"
+                                           class="chip chip-outline-secondary">Android Developer</a>
+                                    </div>
+                                </div>
+                                <div class="card-body flex-0">
+                                    <div class="d-flex align-items-center">
+                                        <a href="student-course.html"
+                                           class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
+                                            <img src="~/images/paths/angular_routing_200x168.png"
+                                                 alt=""
+                                                 class="avatar-img rounded">
+                                            <span class="overlay__content"></span>
+                                        </a>
+                                        <div class="flex">
+                                            <a href="student-course.html"
+                                               class="card-title">Angular Routing In-Depth</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <ul class="pagination justify-content-start pagination-xsm m-0">
+                        <li class="page-item disabled">
+                            <a class="page-link"
+                               href="#"
+                               aria-label="Previous">
+                                <span aria-hidden="true"
+                                      class="material-icons">chevron_left</span>
+                                <span>Prev</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="#"
+                               aria-label="Page 1">
+                                <span>1</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="#"
+                               aria-label="Page 2">
+                                <span>2</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="#"
+                               aria-label="Next">
+                                <span>Next</span>
+                                <span aria-hidden="true"
+                                      class="material-icons">chevron_right</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mdk-drawer js-mdk-drawer "
+             id="library-drawer"
+             data-align="end">
+            <div class="mdk-drawer__content top-navbar">
+                <div class="sidebar sidebar-light sidebar-right py-16pt"
+                     data-perfect-scrollbar
+                     data-perfect-scrollbar-wheel-propagation="true">
+
+                    <div class="d-flex align-items-center mb-24pt  d-lg-none">
+                        <form action="index.html"
+                              class="search-form search-form--light mx-16pt pr-0 pl-16pt">
+                            <input type="text"
+                                   class="form-control pl-0"
+                                   placeholder="Search">
+                            <button class="btn"
+                                    type="submit">
+                                <i class="material-icons">search</i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="sidebar-heading">Category</div>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-menu-item active">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">code</span>
+                                <span class="sidebar-menu-text">Web Development</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">brush</span>
+                                <span class="sidebar-menu-text">Design</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">settings_cell</span>
+                                <span class="sidebar-menu-text">iOS &amp; Swift</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">android</span>
+                                <span class="sidebar-menu-text">Android</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">business_center</span>
+                                <span class="sidebar-menu-text">Business</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">crop_original</span>
+                                <span class="sidebar-menu-text">Photography</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">payment</span>
+                                <span class="sidebar-menu-text">Marketing</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">store</span>
+                                <span class="sidebar-menu-text">eCommerce</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">redeem</span>
+                                <span class="sidebar-menu-text">Health &amp; Fitness</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a href=""
+                               class="sidebar-menu-button">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">music_note</span>
+                                <span class="sidebar-menu-text">Music</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="sidebar-heading">Platform</div>
+                    <div class="sidebar-block">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck01"
+                                       checked="">
+                                <label class="custom-control-label"
+                                       for="filtersCheck01">All</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck02">
+                                <label class="custom-control-label"
+                                       for="filtersCheck02">Archive</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck06">
+                                <label class="custom-control-label"
+                                       for="filtersCheck06">Unity</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck03">
+                                <label class="custom-control-label"
+                                       for="filtersCheck03">Web</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck04">
+                                <label class="custom-control-label"
+                                       for="filtersCheck04">iOS &amp; Swift</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck05">
+                                <label class="custom-control-label"
+                                       for="filtersCheck05">Android</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-heading">Subscription</div>
+                    <div class="sidebar-block">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck07"
+                                       checked="">
+                                <label class="custom-control-label"
+                                       for="filtersCheck07">All</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck08">
+                                <label class="custom-control-label"
+                                       for="filtersCheck08">Free</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck09">
+                                <label class="custom-control-label"
+                                       for="filtersCheck09">Beginner</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck10">
+                                <label class="custom-control-label"
+                                       for="filtersCheck10">Advanced</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-heading">Content type</div>
+                    <div class="sidebar-block">
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck11"
+                                       checked="">
+                                <label class="custom-control-label"
+                                       for="filtersCheck11">All</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck12">
+                                <label class="custom-control-label"
+                                       for="filtersCheck12">Episode</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck13">
+                                <label class="custom-control-label"
+                                       for="filtersCheck13">Video</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck14">
+                                <label class="custom-control-label"
+                                       for="filtersCheck14">Article</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck15">
+                                <label class="custom-control-label"
+                                       for="filtersCheck15">Book</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input"
+                                       type="checkbox"
+                                       value=""
+                                       id="filtersCheck16">
+                                <label class="custom-control-label"
+                                       for="filtersCheck16">Screencast</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- // END Header Layout Content -->

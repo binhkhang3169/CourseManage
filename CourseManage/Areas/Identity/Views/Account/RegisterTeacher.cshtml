@@ -1,0 +1,97 @@
+﻿@inject SignInManager<AppUser> SignInManager
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản cho giảng viên";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="page-section container page__container">
+    <div class="col-lg-10 p-0 mx-auto">
+        <div class="row">
+            <div class="col-md-6 mb-24pt mb-md-0">
+                <section>
+            <form asp-controller="Account" asp-action="RegisterTeacher" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                    <label asp-for="UserName" class="col-md-10 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-10 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-10 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="col-md-10 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </div>
+                </div>
+                    </form>
+                </section>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <h5>Tóm tắt đăng ký</h5>
+                        <div class="d-flex mb-8pt">
+                            <div class="flex"><strong class="text-70">Gói đăng ký</strong></div>
+                            <strong>Học sinh</strong>
+                        </div>
+
+                        <div class="alert alert-soft-warning">
+                            <div class="d-flex flex-wrap align-items-start">
+                                <div class="mr-8pt">
+                                    <i class="material-icons">check</i>
+                                </div>
+                                <div class="flex" style="min-width: 180px">
+                                    <small class="text-100">
+                                        Truy cập hơn 1.000 khóa học chất lượng cao. <strong>Cho cá nhân.</strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-16pt pb-16pt border-bottom">
+                            <div class="flex"><strong class="text-70">Giá</strong></div>
+                            <strong>9 USD mỗi tháng</strong>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" checked id="topic-all" required>
+                            <label class="custom-control-label" for="topic-all">Điều khoản và điều kiện</label>
+                            <small class="form-text text-muted">Bằng cách đánh dấu ở đây và tiếp tục, tôi đồng ý với Điều khoản Sử dụng của Luma.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ 
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); 
+    }
+}

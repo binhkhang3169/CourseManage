@@ -1,0 +1,159 @@
+﻿@model CourseManage.Entities.Course
+
+@{
+    ViewData["Title"] = "Edit Course";
+}
+
+<!-- Page Title and Layout -->
+<div class="pt-32pt">
+    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                <h2 class="mb-0">Edit Course</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-section border-bottom-2">
+    <div class="container page__container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="page-separator">
+                    <div class="page-separator__text">Basic information</div>
+                </div>
+
+                <!-- Form -->
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- Course Title -->
+                    <div class="form-group">
+                        <label asp-for="Title" class="form-label"></label>
+                        <div class="form-group mb-24pt">
+                            <input asp-for="Title" class="form-control form-control-lg" placeholder="Course title" />
+                            <small class="form-text text-muted">Please see our <a href="#">course title
+                                    guideline</a>.</small>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Course Description -->
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" id="summernote"></textarea>
+                        <small class="form-text text-muted">Mô tả ngắn gọn về khóa học này.</small>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <!-- Trailer URL -->
+                    <div class="form-group">
+                        <label asp-for="TrailerUrl" class="form-label"></label>
+                        <input asp-for="TrailerUrl" class="form-control" placeholder="Enter Video URL" />
+                        <small class="form-text text-muted">Enter a valid video URL.</small>
+                        <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+                    </div>
+
+                    <!-- Topic -->
+                    <div class="form-group">
+                        <label asp-for="TopicId" class="form-label"></label>
+                        <select asp-for="TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
+                    </div>
+
+                    <!-- Platform -->
+                    <div class="form-group">
+                        <label asp-for="PlatformId" class="form-label"></label>
+                        <select asp-for="PlatformId" class="form-control" asp-items="ViewBag.PlatformId"></select>
+                    </div>
+                    <!-- Platform -->
+                    <div class="form-group">
+                        <label asp-for="PathId" class="form-label"></label>
+                        <select asp-for="PathId" class="form-control" asp-items="ViewBag.PathId"></select>
+                    </div>
+                    <!-- Platform -->
+                    <div class="form-group">
+                        <label asp-for="DifficultCourse" class="form-label"></label>
+                        <select asp-for="DifficultCourse" class="form-control" asp-items="ViewBag.Difficulty"></select>
+                    </div>
+
+                    <!-- Thumbnail -->
+                    <div class="form-group">
+                        <label asp-for="Thumbnail" class="form-label"></label>
+                        <input asp-for="Thumbnail" class="form-control" />
+                        <span asp-validation-for="Thumbnail" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+
+                    <!-- Nút Xoá -->
+                    <div class="form-group">
+                        <input type="hidden" asp-for="CourseId" />
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <a asp-action="Delete" asp-route-id="@Model.CourseId" class="btn btn-danger">Delete</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: Video and Other Options -->
+            <div class="col-md-4">
+                <!-- Video URL -->
+                <div class="card">
+                    <div class="card-body">
+                        <label class="form-label">URL</label>
+                        <input type="text" class="form-control"
+                            value="https://player.vimeo.com/video/97243285?title=0&byline=0&portrait=0"
+                            placeholder="Enter Video URL" />
+                        <small class="form-text text-muted">Enter a valid video URL.</small>
+                    </div>
+                </div>
+
+                <!-- Options: Category, Price, Tags -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select name="category" class="form-control custom-select">
+                                <option value="vuejs">VueJs</option>
+                                <option value="angular">Angular</option>
+                                <option value="react">React</option>
+                            </select>
+                            <small class="form-text text-muted">Select a category.</small>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <div class="input-group form-inline">
+                                <span class="input-group-prepend"><span class="input-group-text">$</span></span>
+                                <input type="text" class="form-control" value="24" />
+                            </div>
+                            <small class="form-text text-muted">The recommended price is between $17 and $24.</small>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="form-group">
+                            <label class="form-label" for="selectTags">Tags</label>
+                            <select id="selectTags" data-toggle="select" multiple class="form-control">
+                                <option selected="">JavaScript</option>
+                                <option selected="">Angular</option>
+                                <option>Bootstrap</option>
+                                <option>CSS</option>
+                                <option>HTML</option>
+                            </select>
+                            <small class="form-text text-muted">Select one or more tags.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

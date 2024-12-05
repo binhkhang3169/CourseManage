@@ -1,0 +1,102 @@
+﻿@model IEnumerable<CourseManage.Entities.Course>
+
+<div class="mdk-header-layout__content page-content">
+    <div class="pt-32pt">
+        <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+            <div class="row" role="tablist">
+                <div class="col-auto">
+                    <a asp-action="Create" class="btn btn-outline-secondary">Add Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach (var topicGroup in Model.GroupBy(c => c.Topic.Name))
+    {
+
+        <div class="container page__container page-section">
+            <div class="page-separator">
+                <div class="page-separator__text">@topicGroup.First().Topic.Name</div>
+            </div>
+
+            <div class="row">
+                @foreach (var item in topicGroup)
+                {
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary js-overlay mdk-reveal js-mdk-reveal "
+                             data-partial-height="44"
+                             data-toggle="popover"
+                             data-trigger="click">
+                            <a asp-action="Edit" asp-route-id="@item.CourseId" class="js-image" data-position="">
+                                <img src="@Url.Content(item.Thumbnail)" alt="@Html.DisplayFor(modelItem => item.Title)"> <!-- Ảnh của khóa học -->
+                                <span class="overlay__content align-items-start justify-content-start">
+                                    <span class="overlay__action card-body d-flex align-items-center">
+                                        <i class="material-icons mr-4pt">edit</i>
+                                        <span class="card-title text-white">Edit</span>
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="mdk-reveal__content">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title mb-4pt" asp-action="Edit" asp-route-id="@item.CourseId">@Html.DisplayFor(modelItem => item.Title)</a> <!-- Tên khóa học -->
+                                        </div>
+                                        <a asp-action="Edit" asp-route-id="@item.CourseId" class="ml-4pt material-icons text-20 card-course__icon-favorite">edit</a>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="rating flex">
+                                            <span class="rating__item"><span class="material-icons">star</span></span>
+                                            <span class="rating__item"><span class="material-icons">star</span></span>
+                                            <span class="rating__item"><span class="material-icons">star</span></span>
+                                            <span class="rating__item"><span class="material-icons">star</span></span>
+                                            <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                        </div>
+                                        <small class="text-50"> hours</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Nội dung Popover -->
+                        <div class="popoverContainer d-none">
+                            <div class="media">
+                                <div class="media-left mr-12pt">
+                                    <img src="@Url.Content(item.Thumbnail)" width="40" height="40" alt="@Html.DisplayFor(modelItem => item.Title)" class="rounded">
+                                </div>
+                                <div class="media-body">
+                                    <div class="card-title mb-0">@Html.DisplayFor(modelItem => item.Title)</div>
+                                    <p class="lh-1">
+                                        <span class="text-50 small">with</span>
+                                        <span class="text-50 small font-weight-bold">@Html.DisplayFor(modelItem => item.Instructor.Name)</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="my-16pt text-70">@Html.DisplayFor(modelItem => item.Description)</p>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="d-flex align-items-center mb-4pt">
+                                        <span class="material-icons icon-16pt text-50 mr-4pt">access_time</span>
+                                        <p class="flex text-50 lh-1 mb-0"><small>6 hours</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-4pt">
+                                        <span class="material-icons icon-16pt text-50 mr-4pt">play_circle_outline</span>
+                                        <p class="flex text-50 lh-1 mb-0"><small>12 lessons</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-4pt">assessment</span>
+                                        <p class="flex text-50 lh-1 mb-0"><small>Beginner</small></p>
+                                    </div>
+                                </div>
+                                <div class="col text-right">
+                                    <a asp-action="Edit" asp-route-id="@item.CourseId"
+                                       class="btn btn-primary">Edit course</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

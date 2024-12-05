@@ -1,0 +1,111 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Quản lý tài khoản của bạn";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+    <p class="text-success text-center">@ViewData["StatusMessage"]</p>
+
+    <div class="card p-4 mb-4">
+        <h4 class="mb-3">Cập nhật thông tin tài khoản</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-4 font-weight-bold">Thông tin cơ bản:</dt>
+            <dd class="col-sm-8">
+                <dl class="row mb-2">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.profile.UserName)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(m => m.profile.UserName)</dd>
+                </dl>
+                <dl class="row mb-2">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.profile.UserEmail)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(m => m.profile.UserEmail)</dd>
+                </dl>
+                <dl class="row mb-2">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.profile.PhoneNumber)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(m => m.profile.PhoneNumber)</dd>
+                </dl>
+                <dl class="row mb-2">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.profile.HomeAdress)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(m => m.profile.HomeAdress)</dd>
+                </dl>
+                <dl class="row mb-2">
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.profile.BirthDate)</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(m => m.profile.BirthDate)</dd>
+                </dl>
+                <div class="text-end">
+                    <a asp-action="EditProfile" class="btn btn-primary btn-sm">Sửa</a>
+                </div>
+            </dd>
+
+            <dt class="col-sm-4 font-weight-bold">Mật khẩu:</dt>
+            <dd class="col-sm-8">
+                @if (Model.HasPassword)
+                {
+                    <a asp-controller="Manage" asp-action="ChangePassword">Đổi mật khẩu</a>
+                }
+                else
+                {
+                    <a asp-controller="Manage" asp-action="SetPassword">Tạo mật khẩu</a>
+                }
+            </dd>
+
+            <dt class="col-sm-4 font-weight-bold">Liên kết tài khoản ngoài:</dt>
+            <dd class="col-sm-8">
+                Có @Model.Logins.Count liên kết.
+                <a asp-controller="Manage" asp-action="ManageLogins" class="ms-2">Quản lý liên kết ngoài</a>
+            </dd>
+
+            <dt class="col-sm-4 font-weight-bold">Số điện thoại:</dt>
+            <dd class="col-sm-8">
+                <p>Số điện thoại dùng để xác thực hai yếu tố:</p>
+                <span>@(Model.PhoneNumber ?? "không có")</span>
+                @if (Model.PhoneNumber != null)
+                {
+                    <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm ms-2">Loại bỏ số điện thoại</button>
+                    </form>
+                    <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-link">Thay đổi</a>
+                }
+                else
+                {
+                    <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn btn-link">Thêm số điện thoại</a>
+                }
+            </dd>
+
+            <dt class="col-sm-4 font-weight-bold">Xác thực hai yếu tố:</dt>
+            <dd class="col-sm-8">
+                @if (Model.TwoFactor)
+                {
+                    <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post">
+                        <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="Manage" asp-action="EnableTwoFactorAuthentication" method="post">
+                        <button type="submit" class="btn btn-primary btn-sm">Kích hoạt</button>
+                    </form>
+                }
+            </dd>
+
+            <dt class="col-sm-4 font-weight-bold">Xác thực ứng dụng:</dt>
+            <dd class="col-sm-8">
+                @if (Model.AuthenticatorKey == null)
+                {
+                    <form asp-controller="Manage" asp-action="ResetAuthenticatorKey" method="post">
+                        <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã</button>
+                    </form>
+                }
+                else
+                {
+                    <p>Mã xác thực là: <strong>@Model.AuthenticatorKey</strong></p>
+                    <p>Nhập mã này khi yêu cầu xác thực hai yếu tố.</p>
+                    <form asp-controller="Manage" asp-action="GenerateRecoveryCode" method="post">
+                        <button type="submit" class="btn btn-sm btn-primary">Phát sinh mã phục hồi</button>
+                    </form>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>

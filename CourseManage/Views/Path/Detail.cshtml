@@ -1,0 +1,356 @@
+@model CourseManage.Entities.Path
+<!-- // END Header -->
+
+<!-- Header Layout Content -->
+<div class="mdk-header-layout__content page-content ">
+
+<div class="mdk-box bg-primary mdk-box--bg-primary js-mdk-box mb-0"
+     data-effects="blend-background">
+    <div class="mdk-box__content">
+        <div class="hero py-64pt text-center text-sm-left">
+            <div class="container page__container">
+                <div class="d-flex flex-column flex-sm-row">
+                    <div class="order-1 order-sm-0">
+                        <h1 class="text-white">@Model.Name</h1>
+                        <p class="lead text-white-50 measure-hero-lead mb-24pt">
+                            @Model.Description ?? "No description"
+                        </p>
+                        <a href=""
+                           class="btn btn-outline-white">
+                            Get started
+                        </a>
+                    </div>
+                    <div class="ml-sm-auto order-sm-1">
+                        <div class="position-relative overflow-hidden rounded border-4 border-light mb-16pt mb-sm-0">
+                            <div class="bg-primary fullbleed"
+                                 style="opacity: .5;">
+                            </div>
+                            <img class=""
+                                 src="@Url.Content(Model.Avatar ?? "")"
+                                 alt="@Model.Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-expand-sm navbar-light bg-white border-bottom-2 navbar-list p-0 m-0 align-items-center">
+            <div class="container page__container">
+                <ul class="nav navbar-nav flex align-items-sm-center">
+                    @{
+                        int totalLessons = 0;
+                        <!-- Khai báo biến để đếm số lượng lesson trong mỗi path -->
+
+                        foreach (var course in Model.Courses)
+                        {
+                            foreach (var chapter in course.Chapters)
+                            {
+                                totalLessons += chapter.Lessons.Count();
+                            }
+                        }
+                    }
+                    <li class="nav-item navbar-list__item">@totalLessons Lessons</li>
+                    <li class="nav-item navbar-list__item">
+                        <i class="material-icons text-muted icon--left">schedule</i>
+                        2h 46m
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-section border-bottom-2">
+
+    <div class="container page__container">
+        <div class="row ">
+            <div class="col-md-7">
+                <div class="page-separator">
+                    <div class="page-separator__text">Introduction</div>
+                </div>
+                <p class="text-70">Learn one way to build applications with Angu*lar and reuse your code and ab*ilities to build apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+            </div>
+            <div class="col-md-5">
+                <div class="page-separator">
+                    <div class="page-separator__text ">What you’ll learn</div>
+                </div>
+                <ul class="list-unstyled">
+                    <li class="d-flex align-items-center">
+                        <span class="material-icons text-50 mr-8pt">check</span>
+                        <span class="text-70">Fundamentals of working with Angular</span>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <span class="material-icons text-50 mr-8pt">check</span>
+                        <span class="text-70">Create complete Angular applications</span>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <span class="material-icons text-50 mr-8pt">check</span>
+                        <span class="text-70">Working with the Angular CLI</span>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <span class="material-icons text-50 mr-8pt">check</span>
+                        <span class="text-70">Understanding Dependency Injection</span>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <span class="material-icons text-50 mr-8pt">check</span>
+                        <span class="text-70">Testing with Angular</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="page-section bg-alt border-bottom-2">
+    <div class="container page__container">
+        <div class="row">
+            <div class="col-lg-5 mb-24pt mb-lg-0">
+                <div class="border-left-3 border-left-primary pl-24pt pl-md-32pt">
+                    <h4 class="mb-8pt">Skill Assessment</h4>
+                    <p class="text-70 mb-24pt">Measure your skill to find our where to start.</p>
+                    <a href="student-path-assessment.html"
+                       class="btn btn-primary">
+                        Start assessment
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-7 d-flex align-items-center">
+                <div class="page-num-timeline d-flex flex-column flex-sm-row align-items-center justify-content-center flex">
+                    <a href=""
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-title="Your current level: Unknown"
+                       class="page-num-timeline__item page-num-timeline__item-current">
+                        <span class="page-num-timeline__item-tip"></span>
+                        <span class="page-num">
+                            <i class="material-icons">person</i>
+                        </span>
+                    </a>
+                    <a href=""
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-title="Beginner"
+                       class="page-num-timeline__item">
+                        <span class="page-num-timeline__item-tip"></span>
+                        <span class="page-num">1</span>
+                    </a>
+                    <a href=""
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-title="Intermediate"
+                       class="page-num-timeline__item">
+                        <span class="page-num-timeline__item-tip"></span>
+                        <span class="page-num">2</span>
+                    </a>
+                    <a href=""
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-title="Advanced"
+                       class="page-num-timeline__item">
+                        <span class="page-num-timeline__item-tip"></span>
+                        <span class="page-num">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@for (int i = 0; i < 2; i++)
+{
+    <div class="container page__container">
+        <div class="border-left-2 page-section pl-32pt pb-8pt">
+            <div class="d-flex align-items-center page-num-container">
+                <div class="page-num">1</div>
+                @if (i == 0)
+                {
+                    <h4>Beginner</h4>
+                }
+                else
+                {
+                    <h4>Intermediate</h4>
+                }
+            </div>
+            <p class="text-70 mb-lg-32pt">Throughout these Angular courses for beginner*s you will learn core concepts*, common patterns using Angular and, finally, some of the best practices to build fully-functioning web applications using the Angular framework.</p>
+
+            <div class="position-relative carousel-card">
+                <div class="js-mdk-carousel row d-block"
+                     id="carousel-courses1">
+
+                    <a class="carousel-control-next js-mdk-carousel-control mt-n24pt"
+                       href="#carousel-courses1"
+                       role="button"
+                       data-slide="next">
+                        <span class="carousel-control-icon material-icons"
+                              aria-hidden="true">
+                            keyboard_arrow_right
+                        </span>
+                        <span class="sr-only">Next</span>
+                    </a>
+
+                    <div class="mdk-carousel__content">
+                    @foreach (var course in Model.Courses)
+                    {
+                        @if (course.DifficultCourse.HasValue && (int)course.DifficultCourse.Value == i)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay mdk-reveal js-mdk-reveal "
+                                 data-partial-height="44"
+                                 data-toggle="popover"
+                                 data-trigger="click">
+
+                                <a asp-controller="Courses" asp-action="Detail" asp-route-id="@course.CourseId"
+                                   class="js-image"
+                                   data-position="">
+                                    <img src="@Url.Content(course.Thumbnail)"
+                                         alt="course">
+                                    <span class="overlay__content align-items-start justify-content-start">
+                                        <span class="overlay__action card-body d-flex align-items-center">
+                                            <i class="material-icons mr-4pt">play_circle_outline</i>
+                                            <span class="card-title text-white">Preview</span>
+                                        </span>
+                                    </span>
+                                </a>
+                                <div class="mdk-reveal__content">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <div class="flex">
+                                                <a class="card-title"
+                                                   asp-controller="Courses" asp-action="Detail" asp-route-id="@course.CourseId">
+                                                    @course.Title
+                                                </a>
+                                                <small class="text-50 font-weight-bold mb-4pt">Elijah Murray</small>
+                                            </div>
+                                            <a asp-controller="Courses" asp-action="Detail" asp-route-id="@course.CourseId" 
+                                               data-toggle="tooltip"
+                                               data-title="Add Favorite"
+                                               data-placement="top"
+                                               data-boundary="window"
+                                               class="ml-4pt material-icons text-20 card-course__icon-favorite">
+                                                favorite_border
+                                            </a>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="rating flex">
+                                                <span class="rating__item">
+                                                    <span class="material-icons">star</span>
+                                                </span>
+                                                <span class="rating__item">
+                                                    <span class="material-icons">star</span>
+                                                </span>
+                                                <span class="rating__item">
+                                                    <span class="material-icons">star</span>
+                                                </span>
+                                                <span class="rating__item">
+                                                    <span class="material-icons">star</span>
+                                                </span>
+                                                <span class="rating__item">
+                                                    <span class="material-icons">star_border</span>
+                                                </span>
+                                            </div>
+                                            <small class="text-50">6 hours</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img src="@Url.Content(course.Thumbnail)"
+                                             width="40"
+                                             height="40"
+                                             alt="Angular"
+                                             class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">@course.Title</div>
+                                        <p class="lh-1 mb-0">
+                                            <span class="text-50 small">with</span>
+                                            <span class="text-50 small font-weight-bold">@course.Instructor.Name</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p class="my-16pt text-70">@course.Description</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-8pt">check</span>
+                                        <p class="flex text-50 lh-1 mb-0">
+                                            <small>Fundamentals of working with Angular</small>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-8pt">check</span>
+                                        <p class="flex text-50 lh-1 mb-0">
+                                            <small>Create complete Angular applications</small>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-8pt">check</span>
+                                        <p class="flex text-50 lh-1 mb-0">
+                                            <small>Working with the Angular CLI</small>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-8pt">check</span>
+                                        <p class="flex text-50 lh-1 mb-0">
+                                            <small>Understanding Dependency Injection</small>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-50 mr-8pt">check</span>
+                                        <p class="flex text-50 lh-1 mb-0">
+                                            <small>Testing with Angular</small>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="d-flex align-items-center mb-4pt">
+                                            <span class="material-icons icon-16pt text-50 mr-4pt">access_time</span>
+                                            <p class="flex text-50 lh-1 mb-0">
+                                                <small>6 hours</small>
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-4pt">
+                                            <span class="material-icons icon-16pt text-50 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-50 lh-1 mb-0">
+                                                <small>12 lessons</small>
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-50 mr-4pt">assessment</span>
+                                            <p class="flex text-50 lh-1 mb-0">
+                                                <small>Beginner</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col text-right">
+                                        <a asp-controller="Courses" asp-action="Detail" asp-route-id="@course.CourseId"
+                                           class="btn btn-primary">
+                                            Watch trailer
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        }
+                        
+                    }
+                        
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+</div >
+
+<!-- // END Header Layout Content -->
